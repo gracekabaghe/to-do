@@ -1,3 +1,39 @@
-body {
-  background-color: yellow;
+.items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item-icon {
+  align-self: center;
+}
+
+.included-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkbox-p {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.trash {
+  display: flex;
+  position: absolute;
+  right: 14px;
+}
+
+.add-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-list-in {
+  border: none;
+  padding: 10px 0;
+}
+
+.add-list-in:focus {
+  outline: none;
 }
