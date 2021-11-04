@@ -1,4 +1,5 @@
 import './style.css';
+import { completed, saveToStorage  } from './interactive.js';
 
 const container = document.querySelector('.included-item');
 const list = [
@@ -20,6 +21,7 @@ const list = [
 ];
 
 function addItems() {
+  removeElement(container);
   list.forEach((item) => {
     container.innerHTML += `
       <div class="included-item">
@@ -32,4 +34,43 @@ function addItems() {
         </div>`;
   });
 }
-addItems();
+
+function removeElement(element) {
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
+}
+
+function display() {
+  list.sort((a, b) => {
+    const num1 = a.index;
+    const num2 = b.index;
+
+    if (num1 < num2) {
+      return -1;
+    }
+    if (num1 > num2) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+function displayTodo() {
+  display();
+  addItems();
+}
+
+// okay
+window.addEventListener('DOMContentLoaded', () => {
+  if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+    displayTodo(list);
+  }
+  saveToStorage(list);
+});
+
+container.addEventListener('click', (e) => {
+  if (e.target.classList.contains('checkbox')) {
+    completed(e.target, list);
+  }
+});
