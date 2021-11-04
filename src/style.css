@@ -1,0 +1,51 @@
+
+.container {
+  padding: 0 10px;
+  margin: 0 20%;
+}
+
+h3 {
+  display: flex;
+  justify-content: center;
+}
+
+.items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.item-icon {
+  align-self: center;
+}
+
+.included-item {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.checkbox-p {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.trash {
+  display: flex;
+  position: absolute;
+  right: 1%;
+}
+
+.add-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-list-in {
+  border: none;
+  padding: 10px 0;
+}
+
+.add-list-in:focus {
+  outline: none;
+}
