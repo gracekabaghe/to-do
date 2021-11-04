@@ -1,31 +1,41 @@
 export function retrieveStorage() {
-    return localStorage.getItem('todo') ? JSON.parse(localStorage.getItem('todo')) : [];
-  }
-  
-  export function saveToStorage(item) {
-    localStorage.setItem('todo', JSON.stringify(item));
-  }
-  
-  export function completed(element, item) {
-    item.addEventListener('change', () => {
-      const task = element.nextElementSibling.innerHTML;
-      if (element.checked === true) {
-        item.forEach((elem) => {
-          if (elem.description === task) {
-            item.completed = true;
-          }
-        });
-        element.nextElementSibling.classList.add('linethrough');
-      } else {
-        item.forEach((elem) => {
-          if (elem.description === task) {
-            elem.completed = false;
-          }
-          item.nextElementSibling.classList.remove('linethrough');
-        });
+  return localStorage.getItem('todo') ? JSON.parse(localStorage.getItem('todo')) : [];
+}
+
+export function saveToStorage(item) {
+  localStorage.setItem('todo', JSON.stringify(item));
+}
+
+function completedTrue(status, id) {
+  const taskList = JSON.parse(localStorage.getItem('todo'));
+  const taskId = parseInt(id, 10);
+  if (status === true) {
+    for (let i = 0; i < taskList.length; i += 1) {
+      if (taskList[i].index === taskId) {
+        taskList[i].completed = true;
       }
-      saveToStorage(item);
-    });
+    }
+  } else {
+    for (let i = 0; i < taskList.length; i += 1) {
+      if (taskList[i].index === taskId) {
+        taskList[i].completed = false;
+      }
+    }
   }
-  
-  export default { completed, retrieveStorage, saveToStorage };
+  saveToStorage(taskList);
+  localStorage.setItem('todo', JSON.stringify(taskList));
+}
+
+export function completed(item) {
+  item.addEventListener('change', () => {
+    if (item.checked === true) {
+      completedTrue(true, item.id);
+      item.nextElementSibling.classList.add('lineThrough');
+    } else {
+      completedTrue(false, item.id);
+      item.nextElementSibling.classList.remove('lineThrough');
+    }
+  });
+}
+
+export default { completed, retrieveStorage, saveToStorage };

@@ -1,5 +1,5 @@
 import './style.css';
-import { completed, saveToStorage  } from './interactive.js';
+import { completed, saveToStorage } from './interactive.js';
 
 const container = document.querySelector('.included-item');
 const list = [
@@ -19,26 +19,44 @@ const list = [
     index: 3,
   },
 ];
-
-function addItems() {
-  removeElement(container);
-  list.forEach((item) => {
-    container.innerHTML += `
-      <div class="included-item">
-         <div class="checkbox-p">
-                <input class="check" id="${item.index}" type="checkbox">
-                <p class="included-item-p" id="${item.index}">${item.description}</p>
-                <i class="fas fa-ellipsis-v trash"></i>
-                </div>   
-            <div><hr></div>
-        </div>`;
-  });
-}
-
 function removeElement(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild);
   }
+}
+
+function addItems() {
+  const taskList = JSON.parse(localStorage.getItem('todo'));
+  removeElement(container);
+  let thetaskList;
+  if (localStorage.getItem('todo') === null) {
+    thetaskList = list;
+  } else {
+    thetaskList = taskList;
+  }
+  thetaskList.forEach((item) => {
+    if (item.completed) {
+      container.innerHTML += `
+      <div class="included-item">
+         <div class="checkbox-p">
+                <input class="check" id="${item.index}" type="checkbox" checked>
+                <p class="included-item-p lineThrough" id="${item.index}">${item.description}</p>
+                <i class="fas fa-ellipsis-v trash"></i>
+                </div>
+            <div><hr></div>
+        </div>`;
+    } else {
+      container.innerHTML += `
+      <div class="included-item">
+         <div class="checkbox-p">
+                <input class="check" id="${item.index}" type="checkbox" >
+                <p class="included-item-p" id="${item.index}">${item.description}</p>
+                <i class="fas fa-ellipsis-v trash"></i>
+                </div>
+            <div><hr></div>
+        </div>`;
+    }
+  });
 }
 
 function display() {
@@ -66,11 +84,11 @@ window.addEventListener('DOMContentLoaded', () => {
   if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
     displayTodo(list);
   }
-  saveToStorage(list);
+  if (localStorage.getItem('todo') === null) { saveToStorage(list); }
 });
 
 container.addEventListener('click', (e) => {
-  if (e.target.classList.contains('checkbox')) {
-    completed(e.target, list);
+  if (e.target.classList.contains('check')) {
+    completed(e.target);
   }
 });
