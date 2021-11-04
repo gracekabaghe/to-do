@@ -1,5 +1,7 @@
+
 .container {
   padding: 0 10px;
+  margin: 0 20%;
 }
 
 h3 {
@@ -19,6 +21,7 @@ h3 {
 .included-item {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .checkbox-p {
@@ -30,7 +33,7 @@ h3 {
 .trash {
   display: flex;
   position: absolute;
-  right: 14px;
+  right: 1%;
 }
 
 .add-list {
@@ -45,4 +48,10 @@ h3 {
 
 .add-list-in:focus {
   outline: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .trash {
+    right: 1%;
+  }
 }
