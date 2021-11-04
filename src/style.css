@@ -49,9 +49,3 @@ h3 {
 .add-list-in:focus {
   outline: none;
 }
-
-@media only screen and (min-width: 768px) {
-  .trash {
-    right: 1%;
-  }
-}
