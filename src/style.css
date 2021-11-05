@@ -1,7 +1,11 @@
 
 .container {
   padding: 0 10px;
-  margin: 0 20%;
+  width: 500px;
+  margin: auto;
+  background: #fff;
+  box-shadow: 7px 11px 26px #aaa;
+  margin-top: 50px;
 }
 
 h3 {
@@ -9,8 +13,42 @@ h3 {
   justify-content: center;
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+h4 {
+  padding: 20px 10px;
+  border-bottom: 1px solid #807f7f;
+  margin: 0;
+  font-weight: 500;
+}
+
+p {
+  padding-top: 1px;
+  margin: 0;
+}
+
 .items {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 25px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border-bottom: solid 1px #807f7f;
+}
+
+li {
+  color: #353434;
+  display: inline-flex;
+  padding: 15px 10px;
+  width: 87%;
   justify-content: space-between;
 }
 
@@ -24,10 +62,23 @@ h3 {
   position: relative;
 }
 
+.addTask {
+  border: none;
+  font-style: italic;
+  color: #353434;
+  padding: 15px 10px;
+  width: 80%;
+}
+
 .checkbox-p {
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+textarea:focus,
+input:focus {
+  outline: none;
 }
 
 .trash {
@@ -41,9 +92,33 @@ h3 {
   justify-content: space-between;
 }
 
-.add-list-in {
+#checkbox {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.clear {
+  background: #f6f6f6;
   border: none;
-  padding: 10px 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  color: #807f7f;
+  cursor: pointer;
+}
+
+.d-flex:not(:first-child) {
+  border-bottom: solid 1px #807f7f;
+}
+
+.checkbox {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+i {
+  cursor: pointer;
+  color: gray;
 }
 
 .add-list-in:focus {
