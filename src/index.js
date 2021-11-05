@@ -1,94 +1,67 @@
 import './style.css';
-import { completed, saveToStorage } from './interactive.js';
+import taskDisplay from './interactive.js';
+import taskStatus from './taskStatus.js';
+import removeTask from './removeTask.js';
 
-const container = document.querySelector('.included-item');
-const list = [
-  {
-    description: 'Buy Apples',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'Cut Hair',
-    completed: false,
-    index: 2,
-  },
-  {
-    description: 'Make Cookies',
-    completed: false,
-    index: 3,
-  },
-];
-function removeElement(element) {
-  while (element.firstChild) {
-    element.removeChild(element.firstChild);
-  }
-}
+const addNewTask = require('./addNewTask.js');
 
-function addItems() {
-  const taskList = JSON.parse(localStorage.getItem('todo'));
-  removeElement(container);
-  let thetaskList;
-  if (localStorage.getItem('todo') === null) {
-    thetaskList = list;
-  } else {
-    thetaskList = taskList;
+const inputField = document.getElementById('addTask');
+const addTaskbtn = document.getElementById('addTaskbtn');
+
+removeTask();
+const displayOnLoad = () => {
+  if (localStorage.getItem('todo') != null) {
+    taskDisplay();
   }
-  thetaskList.forEach((item) => {
-    if (item.completed) {
-      container.innerHTML += `
-      <div class="included-item">
-         <div class="checkbox-p">
-                <input class="check" id="${item.index}" type="checkbox" checked>
-                <p class="included-item-p lineThrough" id="${item.index}">${item.description}</p>
-                <i class="fas fa-ellipsis-v trash"></i>
-                </div>
-            <div><hr></div>
-        </div>`;
-    } else {
-      container.innerHTML += `
-      <div class="included-item">
-         <div class="checkbox-p">
-                <input class="check" id="${item.index}" type="checkbox" >
-                <p class="included-item-p" id="${item.index}">${item.description}</p>
-                <i class="fas fa-ellipsis-v trash"></i>
-                </div>
-            <div><hr></div>
-        </div>`;
+};
+displayOnLoad();
+
+const clear = document.getElementById('clear');
+const clearCompleted = () => {
+  clear.addEventListener('click', () => {
+    let list = JSON.parse(localStorage.getItem('todo'));
+    list = list.filter((el) => el.completed === false);
+    localStorage.setItem('todo', JSON.stringify(list));
+    taskDisplay();
+    window.location.reload();
+  });
+};
+
+const list = document.getElementsByClassName('list');
+const updateContent = (newDescription, index) => {
+  const list = JSON.parse(localStorage.getItem('todo'));
+  list.forEach((element, i) => {
+    if (i === index) {
+      element.description = newDescription;
+      localStorage.setItem('todo', JSON.stringify(list));
     }
   });
-}
-
-function display() {
-  list.sort((a, b) => {
-    const num1 = a.index;
-    const num2 = b.index;
-
-    if (num1 < num2) {
-      return -1;
-    }
-    if (num1 > num2) {
-      return 1;
-    }
-    return 0;
-  });
-}
-
-function displayTodo() {
-  display();
-  addItems();
-}
-
-// okay
-window.addEventListener('DOMContentLoaded', () => {
-  if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-    displayTodo(list);
+};
+const update = () => {
+  for (let i = 0; i < list.length; i += 1) {
+    const newContent = list[i];
+    list[i].addEventListener('input', () => {
+      const editedConent = newContent.textContent;
+      updateContent(editedConent, i);
+    });
   }
-  if (localStorage.getItem('todo') === null) { saveToStorage(list); }
+};
+
+const execute = () => {
+  addNewTask.tasksArr();
+  taskDisplay();
+  taskStatus();
+  update();
+  removeTask();
+  inputField.value = '';
+};
+
+addTaskbtn.addEventListener('click', () => {
+  execute();
 });
 
-container.addEventListener('click', (e) => {
-  if (e.target.classList.contains('check')) {
-    completed(e.target);
-  }
-});
+addNewTask.generateID();
+removeTask();
+taskStatus(0);
+update();
+clearCompleted();

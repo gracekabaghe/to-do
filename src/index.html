@@ -9,23 +9,25 @@
 <body>
     <h3>TO DO LIST!</h3>
     <div class="container">
-        <div class="items">
-            <p class="item-p">Item</p>
-            <i class="fas fa-sync-alt item-icon"></i>
-        </div>
-        <hr>
-        <div class="add-list">
-            <input class="add-list-in" type="text" placeholder="Add an item">
-            <i class="far fa-arrow-alt-circle-left arrow"></i>
-        </div>
-        <hr>
-        <div class="included-item">
-           
-        </div> 
-        
-        
-        
+    <h4>Today's To Do</h4>
+    <div class="main">
+      <div class="items">
+        <input type="text" placeholder="Add to your list" id="addTask" class="addTask" />
+        <i class=" fas fa-sync-alt item-icon" id="addTaskbtn"></i>
+      </div>
+
+
+      <div class="tasksList">
+        <ul id="tasks">
+        </ul>
+       
+      </div>
+      <div class="footer">
+        <button class="clear" id="clear">Clear all completed</button>
+      </div>
     </div>
+  </div>
 </body>
+
 </html>
 
