@@ -53,3 +53,14 @@ h3 {
 .lineThrough {
   text-decoration: line-through;
 }
+
+.btn {
+  margin-left: 40%;
+  margin-top: 20px;
+  background-color: #d3d3d3;
+  width: 20%;
+  border: none;
+  padding: 15px 0;
+  font-size: 15px;
+  color: #111;
+}

@@ -1,24 +1,12 @@
 import './style.css';
-import { completed, saveToStorage } from './interactive.js';
+import { completed, retrieveStorage, saveToStorage } from './interactive.js';
+import { addTask, deleteTodoList } from './edit.js';
 
 const container = document.querySelector('.included-item');
-const list = [
-  {
-    description: 'Buy Apples',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'Cut Hair',
-    completed: false,
-    index: 2,
-  },
-  {
-    description: 'Make Cookies',
-    completed: false,
-    index: 3,
-  },
-];
+const removeCompleted = document.querySelector('.btn');
+const addToList = document.querySelector('.add-list');
+const list = [];
+
 function removeElement(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild);
@@ -57,6 +45,7 @@ function addItems() {
         </div>`;
     }
   });
+  bindListenerTasks();
 }
 
 function display() {
@@ -77,18 +66,87 @@ function display() {
 function displayTodo() {
   display();
   addItems();
+  bindListenerTasks()
 }
 
-// okay
+function reindex(list) {
+  list.forEach((addTaskItem, i) => {
+    addTaskItem.id = i;
+  });
+  saveToStorage(list);
+  displayTodo();
+}
+
+function bindListenerTasks() {
+  const addedItem = document.querySelectorAll('.add-list-in');
+  addedItem.forEach((elem => {
+    elem.removeEventListener('blur', (e) => {
+      switchTask(e);
+    });
+  }));
+  addedItem.forEach((elem) => {
+    elem.addEventListener('blur', (e) => {
+      switchTask(e);
+    });
+  });
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
     displayTodo(list);
   }
   if (localStorage.getItem('todo') === null) { saveToStorage(list); }
 });
-
 container.addEventListener('click', (e) => {
   if (e.target.classList.contains('check')) {
+    list = retrieveStorage();
     completed(e.target);
   }
+  saveToStorage(list);
+});
+
+// add items to the list
+addToList.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const todoEntry = document.getElementById('addto-list').value;
+  if (todoEntry === '') {
+    alert('Add a task here');
+  } else {
+    addTask(todoEntry, false, list.length, list);
+    addTodo();
+    saveToStorage(list);
+    addToList.reset();
+  }
+});
+
+function switchTask(e) {
+  const el = e.target;
+  const position = el.dataset.index;
+  const desc = el.innerText;
+
+  list.forEach((job) => {
+    if (job.id == position) {
+      job.description = desc;
+    }
+  });
+  saveToStorage(list);
+}
+
+container.addEventListener('click', (e) => {
+  const job = document.querySelector('.addedItem').textContent;
+  if (e.target.classList.contains('list-container')) {
+    deleteTodoList(e.target);
+  }
+  if (e.target.classList.contains('delete')) {
+    todoLists = todoLists.filter((item) => item.description !== job);
+    reindex(list);
+    window.location.reload();
+  }
+});
+
+removeCompleted.addEventListener('click', () => {
+  list = list.filter((item) => elem.completed === false);
+  reindex(list);
+  saveToStorage(list);
+  window.location.reload();
 });
