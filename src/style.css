@@ -49,3 +49,7 @@ h3 {
 .add-list-in:focus {
   outline: none;
 }
+
+.lineThrough {
+  text-decoration: line-through;
+}
