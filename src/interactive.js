@@ -1,41 +1,26 @@
-export function retrieveStorage() {
-  return localStorage.getItem('todo') ? JSON.parse(localStorage.getItem('todo')) : [];
-}
+const tasksUl = document.getElementById('tasks');
+const outputTasks = () => {
+  const list = JSON.parse(localStorage.getItem('todo'));
+  const taskDiv = document.createElement('div');
+  const checkBox = document.createElement('input');
+  const deletedItem = document.createElement('s');
 
-export function saveToStorage(item) {
-  localStorage.setItem('todo', JSON.stringify(item));
-}
-
-function completedTrue(status, id) {
-  const taskList = JSON.parse(localStorage.getItem('todo'));
-  const taskId = parseInt(id, 10);
-  if (status === true) {
-    for (let i = 0; i < taskList.length; i += 1) {
-      if (taskList[i].index === taskId) {
-        taskList[i].completed = true;
-      }
-    }
-  } else {
-    for (let i = 0; i < taskList.length; i += 1) {
-      if (taskList[i].index === taskId) {
-        taskList[i].completed = false;
-      }
-    }
-  }
-  saveToStorage(taskList);
-  localStorage.setItem('todo', JSON.stringify(taskList));
-}
-
-export function completed(item) {
-  item.addEventListener('change', () => {
-    if (item.checked === true) {
-      completedTrue(true, item.id);
-      item.nextElementSibling.classList.add('lineThrough');
+  taskDiv.className = 'd-flex';
+  tasksUl.innerHTML = '';
+  checkBox.type = 'checkbox';
+  checkBox.className = 'checkbox';
+  list.forEach((task) => {
+    if (task.completed) {
+      checkBox.setAttribute('checked', 'checked');
     } else {
-      completedTrue(false, item.id);
-      item.nextElementSibling.classList.remove('lineThrough');
+      checkBox.removeAttribute('checked', 'checked');
     }
-  });
-}
 
-export default { completed, retrieveStorage, saveToStorage };
+    tasksUl.appendChild(deletedItem);
+    tasksUl.appendChild(taskDiv);
+    tasksUl.appendChild(checkBox);
+    tasksUl.innerHTML += ` <li contenteditable class= "list add-list-in" > <p class = "par"> ${task.description}  </p><i class="fas fa-trash-alt"></i> </li>`;
+  });
+};
+
+export default outputTasks;

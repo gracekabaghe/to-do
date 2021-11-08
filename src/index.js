@@ -1,4 +1,5 @@
 import './style.css';
+<<<<<<< HEAD
 import { completed, retrieveStorage, saveToStorage } from './interactive.js';
 import { addTask, deleteTodoList } from './edit.js';
 
@@ -12,16 +13,23 @@ function removeElement(element) {
     element.removeChild(element.firstChild);
   }
 }
+=======
+import taskDisplay from './interactive.js';
+import taskStatus from './taskStatus.js';
+import removeTask from './removeTask.js';
 
-function addItems() {
-  const taskList = JSON.parse(localStorage.getItem('todo'));
-  removeElement(container);
-  let thetaskList;
-  if (localStorage.getItem('todo') === null) {
-    thetaskList = list;
-  } else {
-    thetaskList = taskList;
+const addNewTask = require('./addNewTask.js');
+
+const inputField = document.getElementById('addTask');
+const addTaskbtn = document.getElementById('addTaskbtn');
+>>>>>>> 64947963654d32685f891fe54cf07dc442a40497
+
+removeTask();
+const displayOnLoad = () => {
+  if (localStorage.getItem('todo') != null) {
+    taskDisplay();
   }
+<<<<<<< HEAD
   thetaskList.forEach((item) => {
     if (item.completed) {
       container.innerHTML += `
@@ -47,22 +55,43 @@ function addItems() {
   });
   bindListenerTasks();
 }
+=======
+};
+displayOnLoad();
+>>>>>>> 64947963654d32685f891fe54cf07dc442a40497
 
-function display() {
-  list.sort((a, b) => {
-    const num1 = a.index;
-    const num2 = b.index;
-
-    if (num1 < num2) {
-      return -1;
-    }
-    if (num1 > num2) {
-      return 1;
-    }
-    return 0;
+const clear = document.getElementById('clear');
+const clearCompleted = () => {
+  clear.addEventListener('click', () => {
+    let list = JSON.parse(localStorage.getItem('todo'));
+    list = list.filter((el) => el.completed === false);
+    localStorage.setItem('todo', JSON.stringify(list));
+    taskDisplay();
+    window.location.reload();
   });
-}
+};
 
+const list = document.getElementsByClassName('list');
+const updateContent = (newDescription, index) => {
+  const list = JSON.parse(localStorage.getItem('todo'));
+  list.forEach((element, i) => {
+    if (i === index) {
+      element.description = newDescription;
+      localStorage.setItem('todo', JSON.stringify(list));
+    }
+  });
+};
+const update = () => {
+  for (let i = 0; i < list.length; i += 1) {
+    const newContent = list[i];
+    list[i].addEventListener('input', () => {
+      const editedConent = newContent.textContent;
+      updateContent(editedConent, i);
+    });
+  }
+};
+
+<<<<<<< HEAD
 function displayTodo() {
   display();
   addItems();
@@ -150,3 +179,23 @@ removeCompleted.addEventListener('click', () => {
   saveToStorage(list);
   window.location.reload();
 });
+=======
+const execute = () => {
+  addNewTask.tasksArr();
+  taskDisplay();
+  taskStatus();
+  update();
+  removeTask();
+  inputField.value = '';
+};
+
+addTaskbtn.addEventListener('click', () => {
+  execute();
+});
+
+addNewTask.generateID();
+removeTask();
+taskStatus(0);
+update();
+clearCompleted();
+>>>>>>> 64947963654d32685f891fe54cf07dc442a40497
