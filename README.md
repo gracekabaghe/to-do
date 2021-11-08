@@ -1,8 +1,14 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Project Name
+# TO-DO List
 
-> One paragraph statement about the project.
+> Items can be added to the list by entering the item in question in the "Add to your list" tab. 
+>  To delete an item click on the bin icon.
+>  When an item is completed, click the checkbox and it will be striked through.
+>  Items can also be edited by clicking on the item in question and changing the text as needed.
+
+
+
 
 ![screenshot](./todo-list.png)
 
