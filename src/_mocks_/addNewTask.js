@@ -10,6 +10,7 @@ function generateID(tasks) {
   localStorageMock.setItem('todo', tasks);
 }
 
+<<<<<<< HEAD
 function tasksArr() {
   const inputFieldValue = inputField.value;
   const newTask = {
@@ -22,3 +23,6 @@ function tasksArr() {
 }
 
 export default {generateID, tasksArr};
+=======
+export default generateID
+>>>>>>> main
