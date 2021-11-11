@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "test": "jest --coverage",
-    "jest":  "j sdom",
+    "jest": "j sdom",
     "build": "webpack",
     "start": "webpack serve --open"
   },
