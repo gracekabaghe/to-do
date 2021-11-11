@@ -1,7 +1,7 @@
 import localStorageMock from './localStorage.js';
 
 function generateID(tasks) {
-const newTask = {
+  const newTask = {
     description: document.getElementById('addTask').value,
     completed: false,
     index: tasks.length + 1,
