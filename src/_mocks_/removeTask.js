@@ -1,4 +1,4 @@
-import localStorageMock from './localStorage';
+import localStorageMock from './localStorage.js';
 
 function deleteItem(todo, tasks) {
   const { index } = todo;

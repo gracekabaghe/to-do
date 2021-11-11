@@ -1,4 +1,4 @@
-import deleteItem from '../_mocks_/removeTask';
+import deleteItem from '../_mocks_/removeTask.js';
 
 describe('remove a task from the list', () => {
   const tasks = [
