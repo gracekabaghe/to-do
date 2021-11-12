@@ -1,4 +1,4 @@
-import localStorageMock from "./localStorage";
+import localStorageMock from './localStorage.js';
 
 function generateID(tasks) {
   const newTask = {
@@ -10,4 +10,4 @@ function generateID(tasks) {
   localStorageMock.setItem('todo', tasks);
 }
 
-export default generateID
+export default generateID;
