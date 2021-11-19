@@ -4,13 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-<<<<<<< HEAD
-    "test": "jest --coverage",
-    "jest":  "j sdom",
-=======
     "test": "jest",
     "jest": "j sdom",
->>>>>>> crud
     "build": "webpack",
     "start": "webpack serve --open"
   },
